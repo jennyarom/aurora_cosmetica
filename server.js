@@ -42,12 +42,12 @@ const pool = new Pool({
 
 
 // Establece la conexión a la base de datos MySQL
-db.connect((err) => {
+/**db.connect((err) => {
     if (err) {
         throw err;
     }
     console.log('Conexión a la base de datos establecida');
-});
+});*/
 
 // Configura el middleware bodyParser para analizar datos de solicitud codificados en URL y JSON
 app.use(bodyParser.urlencoded({ extended: true }));
