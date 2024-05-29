@@ -10,6 +10,7 @@ const bcrypt = require('bcrypt');
 const path = require('path');
 // Importa el módulo CORS para permitir solicitudes desde otros dominios
 const cors = require('cors');
+//
 // post
 const { Pool } = require('pg');
 
