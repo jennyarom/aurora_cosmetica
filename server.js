@@ -14,6 +14,7 @@ const cors = require('cors');
 // post
 const { Pool } = require('pg');
 
+
 // Crea una instancia de la aplicación Express
 const app = express();
 
@@ -24,12 +25,21 @@ app.use(cors());
 const port = 3000;
 
 // Crea una conexión a la base de datos MySQL
-const db = mysql.createConnection({
+/**const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
     database: 'aurora'
-});
+});*/
+
+const pool = new Pool({
+    user: 'admin',
+    host: 'dpg-cpb7t86n7f5s73f76pc0-a',
+    database: 'usuario',
+    password: 'lTLwyJSe48CO5JIvz5eicvl6TiT8S2sf',
+    port: 5432, // Puerto predeterminado de PostgreSQL
+  });
+
 
 // Establece la conexión a la base de datos MySQL
 db.connect((err) => {
