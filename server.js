@@ -81,7 +81,7 @@ app.get('/crud/delete', (req, res) => {
 });
 
 app.get('/crud/get', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'crud', 'get.html'));
+    res.sendFile(path.join(__dirname, 'crud', 'get.html'));
 });
 
 app.get('/crud/put', (req, res) => {
