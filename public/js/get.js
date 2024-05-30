@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(){
-    fetch('http://https://pruebadespliegue-k6eo.onrender.com/ConsultarPersonas')
+    fetch('https://pruebadespliegue-k6eo.onrender.com/ConsultarPersonas')
     .then(response => response.json())
     .then(data => mostrarData(data))
     .catch(error => console.log(error));

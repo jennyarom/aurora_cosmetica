@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
             console.log(`Enviando solicitud de actualización para ID: ${userId}, Nombre: ${name}, Username: ${username}`);
   
             // Realizar la solicitud de actualización al servidor
-            fetch(`http://https://pruebadespliegue-k6eo.onrender.com/CRUDRepo/ActualizarPersona/${userId}`, {
+            fetch(`https://pruebadespliegue-k6eo.onrender.com/CRUDRepo/ActualizarPersona/${userId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
