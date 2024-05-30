@@ -76,6 +76,18 @@ app.get('/carrito', (req, res) => {
     res.sendFile(path.join(__dirname, 'carrito.html'));
 });
 
+app.get('/crud/delete', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'crud', 'delete.html'));
+});
+
+app.get('/crud/get', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'crud', 'get.html'));
+});
+
+app.get('/crud/put', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'crud', 'put.html'));
+});
+
 // Definir la ruta para el cierre de sesión
 app.get('/logout', (req, res) => {
     res.redirect('/login');
