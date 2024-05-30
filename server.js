@@ -42,12 +42,12 @@ const pool = new Pool({
 
 
 // Establece la conexión a la base de datos MySQL
-/**db.connect((err) => {
+pool.connect((err) => {
     if (err) {
         throw err;
     }
     console.log('Conexión a la base de datos establecida');
-});*/
+});
 
 // Configura el middleware bodyParser para analizar datos de solicitud codificados en URL y JSON
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -97,7 +97,7 @@ app.get('/logout', (req, res) => {
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
     const query = 'SELECT * FROM usuario WHERE username = ?';
-    db.query(query, [username], (err, result) => {
+    pool.query(query, [username], (err, result) => {
         if (err) {
             console.error('Error al realizar la consulta:', err);
             res.status(500).json({ error: 'Error interno del servidor' });
@@ -129,7 +129,7 @@ app.post('/register', (req, res) => {
     const saltRounds = 10;
     const insertUserQuery = 'INSERT INTO usuario (name, username, password) VALUES (?, ?, ?)';
     const checkUsernameQuery = 'SELECT * FROM usuario WHERE username = ?';
-    db.query(checkUsernameQuery, [username], (err, result) => {
+    pool.query(checkUsernameQuery, [username], (err, result) => {
         if (err) {
             console.error('Error al realizar la consulta:', err);
             res.status(500).json({ error: 'Error interno del servidor' });
@@ -158,7 +158,7 @@ app.post('/register', (req, res) => {
 
 // Maneja las solicitudes GET para consultar personas
 app.get('/CRUDRepo/ConsultarPersonas', (req, res) => {
-    db.query('SELECT * FROM usuario', (err, results) => {
+    pool.query('SELECT * FROM usuario', (err, results) => {
         if (err) {
             console.error('Error al ejecutar la consulta:', err);
             res.status(500).json({ error: 'Error interno del servidor' });
@@ -171,7 +171,7 @@ app.get('/CRUDRepo/ConsultarPersonas', (req, res) => {
 // Maneja las solicitudes POST para agregar una nueva persona
 app.post('/CRUDRepo/AgregarPersona', (req, res) => {
     const { name, username, password } = req.body;
-    db.query('INSERT INTO usuario (name, username, password) VALUES (?, ?, ?)', [name, username, password], (err, results) => {
+    pool.query('INSERT INTO usuario (name, username, password) VALUES (?, ?, ?)', [name, username, password], (err, results) => {
         if (err) {
             console.error('Error al agregar la persona:', err);
             res.status(500).json({ error: 'Error interno del servidor' });
@@ -188,7 +188,7 @@ app.put('/CRUDRepo/ActualizarPersona/:id', (req, res) => {
     if (!name || !username) {
         return res.status(400).json({ error: 'Faltan datos necesarios' });
     }
-    db.query('UPDATE usuario SET name = ?, username = ? WHERE id = ?', [name, username, id], (err, results) => {
+    pool.query('UPDATE usuario SET name = ?, username = ? WHERE id = ?', [name, username, id], (err, results) => {
         if (err) {
             console.error('Error al actualizar la persona:', err);
             res.status(500).json({ error: 'Error interno del servidor' });
@@ -205,7 +205,7 @@ app.put('/CRUDRepo/ActualizarPersona/:id', (req, res) => {
 // Maneja las solicitudes DELETE para eliminar una persona
 app.delete('/CRUDRepo/EliminarPersona/:id', (req, res) => {
     const { id } = req.params;
-    db.query('DELETE FROM usuario WHERE id = ?', [id], (err, results) => {
+    pool.query('DELETE FROM usuario WHERE id = ?', [id], (err, results) => {
         if (err) {
             console.error('Error al eliminar la persona:', err);
             res.status(500).json({ error: 'Error interno del servidor' });
