@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(){
-    fetch('https://localhost:3000/ConsultarPersonas')
+    fetch('http://localhost:3000/CRUDRepo/ConsultarPersonas')
     .then(response => response.json())
     .then(data => mostrarData(data))
     .catch(error => console.log(error));
