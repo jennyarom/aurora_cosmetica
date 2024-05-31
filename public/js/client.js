@@ -24,7 +24,7 @@ $(document).ready(function() {
     
         $.post('/login', { username: username,password: password }, function(response) {
             if (response.exists) {
-                window.location.href = '/carrito.html';
+                window.location.href = '/carrito';
             }else {
                 Swal.fire('Usuario no encontrado', 'El usuario no existe o la contraseña es incorrecta.', 'error');
             }
