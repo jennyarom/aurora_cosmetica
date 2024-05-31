@@ -22,7 +22,7 @@ const app = express();
 app.use(cors());
 
 // Establece el puerto en el que el servidor escuchará las solicitudes
-const port = 3000;
+const port = 5432;
 
 // Crea una conexión a la base de datos MySQL
 /**const db = mysql.createConnection({
@@ -90,7 +90,7 @@ app.get('/crud/put', (req, res) => {
 
 // Definir la ruta para el cierre de sesión
 app.get('/logout', (req, res) => {
-    res.redirect('/login/login');
+    res.redirect('/login');
 });
 
 // Maneja las solicitudes POST para iniciar sesión
@@ -144,7 +144,7 @@ app.post('/register', (req, res) => {
                 res.status(500).json({ error: 'Error interno del servidor' });
                 return;
             }
-            db.query(insertUserQuery, [name, username, hashedPassword], (err, result) => {
+            pool.query(insertUserQuery, [name, username, hashedPassword], (err, result) => {
                 if (err) {
                     console.error('Error al insertar el usuario:', err);
                     res.status(500).json({ error: 'Error interno del servidor' });
