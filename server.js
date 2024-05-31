@@ -168,19 +168,6 @@ app.get('/CRUDRepo/ConsultarPersonas', (req, res) => {
     });
 });
 
-// Maneja las solicitudes POST para agregar una nueva persona
-app.post('/CRUDRepo/AgregarPersona', (req, res) => {
-    const { name, username, password } = req.body;
-    pool.query('INSERT INTO usuario (name, username, password) VALUES (?, ?, ?)', [name, username, password], (err, results) => {
-        if (err) {
-            console.error('Error al agregar la persona:', err);
-            res.status(500).json({ error: 'Error interno del servidor' });
-            return;
-        }
-        res.status(201).json({ message: 'Persona agregada exitosamente' });
-    });
-});
-
 // Maneja las solicitudes PUT para actualizar una persona
 app.put('/CRUDRepo/ActualizarPersona/:id', (req, res) => {
     const { id } = req.params;
