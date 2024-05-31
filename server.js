@@ -22,27 +22,27 @@ const app = express();
 app.use(cors());
 
 // Establece el puerto en el que el servidor escuchará las solicitudes
-const port = 5432;
+const port = 3000;
 
 // Crea una conexión a la base de datos MySQL
-/**const db = mysql.createConnection({
+const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
     database: 'aurora'
-});*/
+});
 
-const pool = new Pool({
+/**const pool = new Pool({
     user: 'admin',
     host: 'dpg-cpb7t86n7f5s73f76pc0-a',
     database: 'usuario',
     password: 'lTLwyJSe48CO5JIvz5eicvl6TiT8S2sf',
     port: 5432, // Puerto predeterminado de PostgreSQL
-  });
+  });*/
 
 
 // Establece la conexión a la base de datos MySQL
-pool.connect((err) => {
+db.connect((err) => {
     if (err) {
         throw err;
     }
@@ -97,7 +97,7 @@ app.get('/logout', (req, res) => {
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
     const query = 'SELECT * FROM usuario WHERE username = ?';
-    pool.query(query, [username], (err, result) => {
+    db.query(query, [username], (err, result) => {
         if (err) {
             console.error('Error al realizar la consulta:', err);
             res.status(500).json({ error: 'Error interno del servidor' });
@@ -129,7 +129,7 @@ app.post('/register', (req, res) => {
     const saltRounds = 10;
     const insertUserQuery = 'INSERT INTO usuario (name, username, password) VALUES (?, ?, ?)';
     const checkUsernameQuery = 'SELECT * FROM usuario WHERE username = ?';
-    pool.query(checkUsernameQuery, [username], (err, result) => {
+    db.query(checkUsernameQuery, [username], (err, result) => {
         if (err) {
             console.error('Error al realizar la consulta:', err);
             res.status(500).json({ error: 'Error interno del servidor' });
@@ -144,7 +144,7 @@ app.post('/register', (req, res) => {
                 res.status(500).json({ error: 'Error interno del servidor' });
                 return;
             }
-            pool.query(insertUserQuery, [name, username, hashedPassword], (err, result) => {
+            db.query(insertUserQuery, [name, username, hashedPassword], (err, result) => {
                 if (err) {
                     console.error('Error al insertar el usuario:', err);
                     res.status(500).json({ error: 'Error interno del servidor' });
@@ -158,7 +158,7 @@ app.post('/register', (req, res) => {
 
 // Maneja las solicitudes GET para consultar personas
 app.get('/CRUDRepo/ConsultarPersonas', (req, res) => {
-    pool.query('SELECT * FROM usuario', (err, results) => {
+    db.query('SELECT * FROM usuario', (err, results) => {
         if (err) {
             console.error('Error al ejecutar la consulta:', err);
             res.status(500).json({ error: 'Error interno del servidor' });
@@ -175,7 +175,7 @@ app.put('/CRUDRepo/ActualizarPersona/:id', (req, res) => {
     if (!name || !username) {
         return res.status(400).json({ error: 'Faltan datos necesarios' });
     }
-    pool.query('UPDATE usuario SET name = ?, username = ? WHERE id = ?', [name, username, id], (err, results) => {
+    db.query('UPDATE usuario SET name = ?, username = ? WHERE id = ?', [name, username, id], (err, results) => {
         if (err) {
             console.error('Error al actualizar la persona:', err);
             res.status(500).json({ error: 'Error interno del servidor' });
@@ -192,7 +192,7 @@ app.put('/CRUDRepo/ActualizarPersona/:id', (req, res) => {
 // Maneja las solicitudes DELETE para eliminar una persona
 app.delete('/CRUDRepo/EliminarPersona/:id', (req, res) => {
     const { id } = req.params;
-    pool.query('DELETE FROM usuario WHERE id = ?', [id], (err, results) => {
+    db.query('DELETE FROM usuario WHERE id = ?', [id], (err, results) => {
         if (err) {
             console.error('Error al eliminar la persona:', err);
             res.status(500).json({ error: 'Error interno del servidor' });
