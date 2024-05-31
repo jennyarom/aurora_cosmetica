@@ -34,7 +34,7 @@ const port = 5432;
 
 const pool = new Pool({
     user: 'admin',
-    host: 'dpg-cpb7t86n7f5s73f76pc0-a.oregon-postgres.render.com',
+    host: 'dpg-cpb7t86n7f5s73f76pc0-a',
     database: 'usuario',
     password: 'lTLwyJSe48CO5JIvz5eicvl6TiT8S2sf',
     port: 5432, // Puerto predeterminado de PostgreSQL
