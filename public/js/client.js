@@ -5,14 +5,14 @@ $(document).ready(function() {
     $('#loginLink').click(function(event) {
         event.preventDefault(); // Previene el comportamiento por defecto del enlace
         // Redirige a la página de inicio de sesión
-        window.location.href = '/login/login.html';
+        window.location.href = '/login';
     });
 
     // Asigna un evento de clic al elemento con id 'registerLink'
     $('#registerLink').click(function(event) {
         event.preventDefault(); // Previene el comportamiento por defecto del enlace
         // Redirige a la página de registro
-        window.location.href = '/register/registro.html';
+        window.location.href = '/register';
 
     });
 
