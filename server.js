@@ -90,7 +90,7 @@ app.get('/crud/put', (req, res) => {
 
 // Definir la ruta para el cierre de sesión
 app.get('/logout', (req, res) => {
-    res.redirect('/login');
+    res.redirect('/login/login');
 });
 
 // Maneja las solicitudes POST para iniciar sesión
