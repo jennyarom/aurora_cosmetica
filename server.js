@@ -12,7 +12,7 @@ const path = require('path');
 const cors = require('cors');
 //
 // Importa PostgreSQL
-const { Pool } = require('pg');
+//const { Pool } = require('pg');
 
 
 // Crea una instancia de la aplicación Express
