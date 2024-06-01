@@ -15,7 +15,9 @@ const cors = require('cors');
 const app = express();
 
 // Habilita CORS para permitir solicitudes desde otros dominios
-app.use(cors());
+app.use(cors({
+    origin: 'https://jennyarom.github.io'
+}));
 
 // Establece el puerto en el que el servidor escuchará las solicitudes
 const port = 3000;

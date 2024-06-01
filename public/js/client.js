@@ -5,14 +5,14 @@ $(document).ready(function() {
     $('#loginLink').click(function(event) {
         event.preventDefault(); // Previene el comportamiento por defecto del enlace
         // Redirige a la página de inicio de sesión
-        window.location.href = '/login';
+        window.location.href = '../login/login.html';
     });
 
     // Asigna un evento de clic al elemento con id 'registerLink'
     $('#registerLink').click(function(event) {
         event.preventDefault(); // Previene el comportamiento por defecto del enlace
         // Redirige a la página de registro
-        window.location.href = '/register';
+        window.location.href = '../register/registro.html';
     });
 
     // Asigna un evento de envío al formulario con id 'loginForm'
@@ -21,9 +21,9 @@ $(document).ready(function() {
         let username = $('#username').val();
         let password = $('#password').val();
     
-        $.post('/login', { username: username,password: password }, function(response) {
+        $.post('http://localhost:3000/login', { username: username,password: password }, function(response) {
             if (response.exists) {
-                window.location.href = '/carrito';
+                window.location.href = '../carro.html';
             }else {
                 Swal.fire('Usuario no encontrado', 'El usuario no existe o la contraseña es incorrecta.', 'error');
             }
@@ -44,13 +44,13 @@ $(document).ready(function() {
         }
     
         $.ajax({
-            url: '/register',
+            url: 'http://localhost:3000/register',
             type: 'POST',
             data: { name: name, username: username, password: password },
             success: function(response) {
                 if (response.registered) {
                     Swal.fire('Registro exitoso', '¡Usuario registrado correctamente!', 'success').then(() => {
-                        window.location.href = '/login';
+                        window.location.href = '../login/login.html';
                     });
                 } else {
                     Swal.fire('Error', 'La creación del usuario falló.', 'error');
