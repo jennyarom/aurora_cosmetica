@@ -23,7 +23,7 @@ $(document).ready(function() {
     
         $.post('http://localhost:3000/login', { username: username,password: password }, function(response) {
             if (response.exists) {
-                window.location.href = '../carro.html';
+                window.location.href = '../carrito.html';
             }else {
                 Swal.fire('Usuario no encontrado', 'El usuario no existe o la contraseña es incorrecta.', 'error');
             }
