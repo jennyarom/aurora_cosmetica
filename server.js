@@ -62,12 +62,12 @@ app.get('/', (req, res) => {
 });
 
 // Define la ruta para la página de inicio de sesión
-app.get('/login', (req, res) => {
+app.get('/login/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'login', 'login.html'));
 });
 
 // Define la ruta para la página de registro
-app.get('/register', (req, res) => {
+app.get('/register/registro', (req, res) => {
     res.sendFile(path.join(__dirname, 'register', 'registro.html'));
 });
 
