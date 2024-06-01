@@ -10,10 +10,6 @@ const bcrypt = require('bcrypt');
 const path = require('path');
 // Importa el módulo CORS para permitir solicitudes desde otros dominios
 const cors = require('cors');
-//
-// Importa PostgreSQL
-//const { Pool } = require('pg');
-
 
 // Crea una instancia de la aplicación Express
 const app = express();
@@ -31,15 +27,6 @@ const db = mysql.createConnection({
     password: '',
     database: 'aurora'
 });
-
-/**const pool = new Pool({
-    user: 'admin',
-    host: 'dpg-cpb7t86n7f5s73f76pc0-a',
-    database: 'usuario',
-    password: 'lTLwyJSe48CO5JIvz5eicvl6TiT8S2sf',
-    port: 5432, // Puerto predeterminado de PostgreSQL
-  });*/
-
 
 // Establece la conexión a la base de datos MySQL
 db.connect((err) => {
@@ -63,12 +50,12 @@ app.get('/', (req, res) => {
 
 // Define la ruta para la página de inicio de sesión
 app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname,'aurora_cosmetica', 'login', 'login.html'));
+    res.sendFile(path.join(__dirname, 'login', 'login.html'));
 });
 
 // Define la ruta para la página de registro
 app.get('/register', (req, res) => {
-    res.sendFile(path.join(__dirname, 'aurora_cosmetica','register', 'registro.html'));
+    res.sendFile(path.join(__dirname, 'register', 'registro.html'));
 });
 
 // Define la ruta para la página del carrito
@@ -76,25 +63,13 @@ app.get('/carrito', (req, res) => {
     res.sendFile(path.join(__dirname, 'carrito.html'));
 });
 
-app.get('/crud/delete', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'crud', 'delete.html'));
-});
-
-app.get('/crud/get', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'crud', 'get.html'));
-});
-
-app.get('/crud/put', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'crud', 'put.html'));
-});
-
 // Definir la ruta para el cierre de sesión
 app.get('/logout', (req, res) => {
-    res.redirect('/login.html');
+    res.redirect('/login');
 });
 
 // Maneja las solicitudes POST para iniciar sesión
-app.post('/login/login', (req, res) => {
+app.post('/login', (req, res) => {
     const { username, password } = req.body;
     const query = 'SELECT * FROM usuario WHERE username = ?';
     db.query(query, [username], (err, result) => {
@@ -124,7 +99,7 @@ app.post('/login/login', (req, res) => {
 });
 
 // Maneja las solicitudes POST para registrar un nuevo usuario
-app.post('/register/registro', (req, res) => {
+app.post('/register', (req, res) => {
     const { name, username, password } = req.body;
     const saltRounds = 10;
     const insertUserQuery = 'INSERT INTO usuario (name, username, password) VALUES (?, ?, ?)';
@@ -165,6 +140,19 @@ app.get('/CRUDRepo/ConsultarPersonas', (req, res) => {
             return;
         }
         res.json(results);
+    });
+});
+
+// Maneja las solicitudes POST para agregar una nueva persona
+app.post('/CRUDRepo/AgregarPersona', (req, res) => {
+    const { name, username, password } = req.body;
+    db.query('INSERT INTO usuario (name, username, password) VALUES (?, ?, ?)', [name, username, password], (err, results) => {
+        if (err) {
+            console.error('Error al agregar la persona:', err);
+            res.status(500).json({ error: 'Error interno del servidor' });
+            return;
+        }
+        res.status(201).json({ message: 'Persona agregada exitosamente' });
     });
 });
 
