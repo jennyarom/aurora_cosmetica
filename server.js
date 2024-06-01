@@ -62,13 +62,13 @@ app.get('/', (req, res) => {
 });
 
 // Define la ruta para la página de inicio de sesión
-app.get('/login/login', (req, res) => {
-    res.sendFile(path.join(__dirname, 'login', 'login.html'));
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname,'aurora_cosmetica', 'login', 'login.html'));
 });
 
 // Define la ruta para la página de registro
-app.get('/register/registro', (req, res) => {
-    res.sendFile(path.join(__dirname, 'register', 'registro.html'));
+app.get('/register', (req, res) => {
+    res.sendFile(path.join(__dirname, 'aurora_cosmetica','register', 'registro.html'));
 });
 
 // Define la ruta para la página del carrito
@@ -90,11 +90,11 @@ app.get('/crud/put', (req, res) => {
 
 // Definir la ruta para el cierre de sesión
 app.get('/logout', (req, res) => {
-    res.redirect('/login/login.html');
+    res.redirect('/login.html');
 });
 
 // Maneja las solicitudes POST para iniciar sesión
-app.post('/login', (req, res) => {
+app.post('/login/login', (req, res) => {
     const { username, password } = req.body;
     const query = 'SELECT * FROM usuario WHERE username = ?';
     db.query(query, [username], (err, result) => {
@@ -124,7 +124,7 @@ app.post('/login', (req, res) => {
 });
 
 // Maneja las solicitudes POST para registrar un nuevo usuario
-app.post('/register', (req, res) => {
+app.post('/register/registro', (req, res) => {
     const { name, username, password } = req.body;
     const saltRounds = 10;
     const insertUserQuery = 'INSERT INTO usuario (name, username, password) VALUES (?, ?, ?)';
