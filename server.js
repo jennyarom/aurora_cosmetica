@@ -67,7 +67,7 @@ app.get('/carrito', (req, res) => {
 
 // Definir la ruta para el cierre de sesión
 app.get('/logout', (req, res) => {
-    res.redirect('/login');
+    res.redirect('/login/login.html');
 });
 
 // Maneja las solicitudes POST para iniciar sesión
