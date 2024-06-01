@@ -22,7 +22,7 @@ $(document).ready(function() {
         let username = $('#username').val();
         let password = $('#password').val();
     
-        $.post('/login', { username: username,password: password }, function(response) {
+        $.post('/login/login', { username: username,password: password }, function(response) {
             if (response.exists) {
                 window.location.href = '/carrito';
             }else {
@@ -45,7 +45,7 @@ $(document).ready(function() {
         }
     
         $.ajax({
-            url: '/register',
+            url: '/register/registro',
             type: 'POST',
             data: { name: name, username: username, password: password },
             success: function(response) {
